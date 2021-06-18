@@ -4,9 +4,9 @@ const Bodies = Matter.Bodies;
 const Constraint = Matter.Constraint;
 
 var engine, world;
-var holder,ball,ground;
+var holder,polygon,ground;
 var stand1,stand2;
-var ball;
+var polygon;
 var slingShot;
 var polygon_img;
 function preload(){
@@ -19,7 +19,7 @@ function setup() {
   Engine.run(engine);
   ground = new Ground();
   stand1 = new Stand(390,300,250,10);
-  stand2 = new Stand(700,200,250,10);
+  stand2 = new Stand(700,200,200,10);
  
   //level one
   block1 = new Block(300,275,30,40);
@@ -43,6 +43,7 @@ function setup() {
   block16 = new Block(390,155,30,40);
 
 
+  
   block17 = new Block(640,100,30,40)
  block18 = new Block(670,100,30,40)
   block19 = new Block(700,100,30,40)
@@ -61,24 +62,26 @@ function setup() {
   block31 = new Block(730,20,30,40)
   block32 = new Block(700,0,30,40)
 
+  //polygon holder with slings
   polygon = Bodies.circle(50,200,20);
   World.add(world,polygon);
-  slingShot = new SlingShot(this.polygon,{x:100,y:200});
-
-
+  
+  slingShot = new Slingshot(this.polygon,{x:100,y:200});
 
 }
 function draw() {
   background(56,44,44); 
  
+  //Engine.update(engine);
+  
   textSize(20);
   fill("lightyellow");
-  
-
+  text("Drag the polygon to destroy the blocks",300,30);
+  textSize(10);
+  text("Press Space to get a second Chance to Play!!",650 ,350);
   ground.display();
   stand1.display();
   stand2.display();
-  
   strokeWeight(2);
   stroke(15);
   fill("skyblue");
@@ -101,7 +104,8 @@ function draw() {
   block15.display();
   fill("grey");
   block16.display();
- 
+
+  
   fill("purple");
   block17.display();
   block18.display();
@@ -124,24 +128,20 @@ function draw() {
   fill("red");
   block32.display();
 
+  fill("gold");
+
+  imageMode(CENTER)
+  image(polygon_img ,polygon.position.x,polygon.position.y,40,40);
 
   slingShot.display();
-
-  image(this.polygon_img, 20, 150,40,50)
-
-
-
-  function mouseDragged(){
-    Matter.Body.setPosition(this.polygon, {x: mouseX , y: mouseY});
+  
 }
-
-
+function mouseDragged(){
+  Matter.Body.setPosition(this.polygon,{x:mouseX,y:mouseY});
+}
 function mouseReleased(){
-    slingShot.fly();
+  slingShot.fly();
 }
-
-
-
+function keyPressed(){
+//write code for extra chance of the player
 }
-
-
